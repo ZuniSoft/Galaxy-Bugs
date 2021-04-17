@@ -1,0 +1,1461 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target arm64-apple-ios12.4 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name ToolKit
+import Foundation
+import ObjectiveC
+import QuartzCore
+import Swift
+@_exported import ToolKit
+import UIKit
+import WebKit
+public protocol Hoverable {
+  var isHovering: Swift.Bool { get set }
+  @available(iOS 13.0, *)
+  func hoverGesture(_ sender: UIKit.UIHoverGestureRecognizer)
+}
+extension Hoverable {
+  @available(iOS 13.0, *)
+  public func hoverGesture(_ sender: UIKit.UIHoverGestureRecognizer)
+}
+extension Hoverable where Self : UIKit.UIView {
+  public func installHoverGesture()
+}
+public protocol ConstraintMultiplierTarget {
+  var constraintMultiplierTargetValue: CoreGraphics.CGFloat { get }
+}
+extension Int : ToolKit.ConstraintMultiplierTarget {
+  public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
+    get
+  }
+}
+extension UInt : ToolKit.ConstraintMultiplierTarget {
+  public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
+    get
+  }
+}
+extension Float : ToolKit.ConstraintMultiplierTarget {
+  public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
+    get
+  }
+}
+extension Double : ToolKit.ConstraintMultiplierTarget {
+  public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
+    get
+  }
+}
+extension CGFloat : ToolKit.ConstraintMultiplierTarget {
+  public var constraintMultiplierTargetValue: CoreGraphics.CGFloat {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class PXPColorSpace : ObjectiveC.NSObject {
+  @objc public var numberOfComponents: Swift.Int {
+    @objc get
+  }
+  @objc public init(colorSpaceRef: CoreGraphics.CGColorSpace)
+  @objc override dynamic public init()
+  @objc public class func deviceRGBColorSpace() -> ToolKit.PXPColorSpace
+  @objc public class func deviceCMYKColorSpace() -> ToolKit.PXPColorSpace
+  @objc public class func deviceGrayColorSpace() -> ToolKit.PXPColorSpace
+  @objc deinit
+}
+@objc public class MenuView : UIKit.UIView, ToolKit.MenuThemeable, ToolKit.Hoverable, UIKit.UIGestureRecognizerDelegate {
+  public static let menuWillPresent: Foundation.Notification.Name
+  public var title: Swift.String {
+    get
+    set
+  }
+  public var attributedTitle: Foundation.NSAttributedString? {
+    get
+    set
+  }
+  public var isHovering: Swift.Bool {
+    get
+    set
+  }
+  public enum Alignment {
+    case left
+    case center
+    case right
+    public static func == (a: ToolKit.MenuView.Alignment, b: ToolKit.MenuView.Alignment) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public var contentAlignment: ToolKit.MenuView.Alignment {
+    get
+    set
+  }
+  public init(title: Swift.String, theme: ToolKit.MenuTheme, itemsSource: @escaping () -> [ToolKit.MenuItem])
+  @objc deinit
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @available(iOS 13.0, *)
+  public func hoverGesture(_ sender: UIKit.UIHoverGestureRecognizer)
+  @objc public func gestureRecognizer(_ gestureRecognizer: UIKit.UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
+  public func showContents()
+  public func hideContents(animated: Swift.Bool)
+  @objc override dynamic public func point(inside point: CoreGraphics.CGPoint, with event: UIKit.UIEvent?) -> Swift.Bool
+  @objc override dynamic public func hitTest(_ point: CoreGraphics.CGPoint, with event: UIKit.UIEvent?) -> UIKit.UIView?
+  public func applyTheme(_ theme: ToolKit.MenuTheme)
+  @objc override dynamic public func tintColorDidChange()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+}
+public protocol NameDocumentViewModel : AnyObject {
+  var title: Swift.String { get }
+  var errorTitle: Swift.String { get }
+  var name: Swift.String { get }
+  var placeholder: Swift.String { get }
+  var updateViewState: (() -> Swift.Void)? { get set }
+  func isNameValid(_ name: Swift.String) -> Swift.Bool
+  func applyNameChange(_ name: Swift.String) throws
+}
+@objc open class NameDocumentViewController : UIKit.UIViewController, UIKit.UITextFieldDelegate {
+  final public let nameField: UIKit.UITextField
+  public var doneButton: UIKit.UIBarButtonItem?
+  public var cancelButton: UIKit.UIBarButtonItem?
+  public var cancelAction: () -> Swift.Void
+  final public let viewModel: ToolKit.NameDocumentViewModel
+  public init(viewModel: ToolKit.NameDocumentViewModel)
+  @objc override dynamic open func viewDidLoad()
+  @objc override dynamic open func viewWillAppear(_ animated: Swift.Bool)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc open func textFieldShouldReturn(_ textField: UIKit.UITextField) -> Swift.Bool
+  @objc deinit
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+}
+extension ProcessInfo {
+  @objc dynamic public var compatibleIsiOSAppOnMac: Swift.Bool {
+    @objc get
+  }
+}
+@objc extension UIViewController {
+  @objc dynamic public func addChildViewController(_ controller: UIKit.UIViewController?, into container: UIKit.UIView)
+  @objc dynamic public func addChildViewController(_ controller: UIKit.UIViewController?, into container: UIKit.UIView, oldController: UIKit.UIViewController?)
+}
+@objc extension UIView {
+  @objc dynamic public func constrainToEdges(ofView container: UIKit.UIView)
+  @objc dynamic public func constrainToCenterAndSize(ofView container: UIKit.UIView)
+}
+@_hasMissingDesignatedInitializers final public class Constraint {
+  final public var layoutConstraints: [ToolKit.LayoutConstraint]
+  final public var isActive: Swift.Bool {
+    get
+    set
+  }
+  @available(*, deprecated, renamed: "activate()")
+  final public func install()
+  @available(*, deprecated, renamed: "deactivate()")
+  final public func uninstall()
+  final public func activate()
+  final public func deactivate()
+  @discardableResult
+  final public func update(offset: ToolKit.ConstraintOffsetTarget) -> ToolKit.Constraint
+  @discardableResult
+  final public func update(inset: ToolKit.ConstraintInsetTarget) -> ToolKit.Constraint
+  @available(iOS 11.0, tvOS 11.0, *)
+  @discardableResult
+  final public func update(inset: ToolKit.ConstraintDirectionalInsetTarget) -> ToolKit.Constraint
+  @discardableResult
+  final public func update(priority: ToolKit.ConstraintPriorityTarget) -> ToolKit.Constraint
+  @discardableResult
+  final public func update(priority: ToolKit.ConstraintPriority) -> ToolKit.Constraint
+  @available(*, deprecated, renamed: "update(offset:)")
+  final public func updateOffset(amount: ToolKit.ConstraintOffsetTarget)
+  @available(*, deprecated, renamed: "update(inset:)")
+  final public func updateInsets(amount: ToolKit.ConstraintInsetTarget)
+  @available(*, deprecated, renamed: "update(priority:)")
+  final public func updatePriority(amount: ToolKit.ConstraintPriorityTarget)
+  @available(*, deprecated, message: "Use update(priority: ConstraintPriorityTarget) instead.")
+  final public func updatePriorityRequired()
+  @available(*, deprecated, message: "Use update(priority: ConstraintPriorityTarget) instead.")
+  final public func updatePriorityHigh()
+  @available(*, deprecated, message: "Use update(priority: ConstraintPriorityTarget) instead.")
+  final public func updatePriorityMedium()
+  @available(*, deprecated, message: "Use update(priority: ConstraintPriorityTarget) instead.")
+  final public func updatePriorityLow()
+  @objc deinit
+}
+extension UIScreen {
+  public var isLargeScreen: Swift.Bool {
+    get
+  }
+  public static let largeDisplayThreshold: CoreGraphics.CGFloat
+}
+@objc extension UIScrollView {
+  @objc dynamic public func scrollOffset(for rect: CoreGraphics.CGRect) -> CoreGraphics.CGPoint
+  @objc dynamic public func scroll(toVisible rect: CoreGraphics.CGRect, animated: Swift.Bool)
+}
+public struct Color {
+  public let hue: Swift.Float
+  public let saturation: Swift.Float
+  public let lightness: Swift.Float
+  public let alpha: Swift.Float
+  public init(hue: Swift.Float, saturation: Swift.Float, lightness: Swift.Float, alpha: Swift.Float)
+}
+extension Color {
+  public var rgba: [Swift.Float] {
+    get
+  }
+}
+extension Color {
+  public init(uiColor color: UIKit.UIColor)
+  public var uiColor: UIKit.UIColor {
+    get
+  }
+}
+public protocol WebBrowserDelegate : AnyObject {
+  func webBrowser(_ webBrowser: ToolKit.WebBrowserViewController, didStartLoad url: Foundation.URL?)
+  func webBrowser(_ webBrowser: ToolKit.WebBrowserViewController, didFinishLoad url: Foundation.URL?)
+  func webBrowser(_ webBrowser: ToolKit.WebBrowserViewController, didFailLoad url: Foundation.URL?, withError error: Swift.Error)
+  func webBrowserWillDismiss(_ webBrowser: ToolKit.WebBrowserViewController)
+  func webBrowserDidDismiss(_ webBrowser: ToolKit.WebBrowserViewController)
+  func webBrowser(_ webBrowser: ToolKit.WebBrowserViewController, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void) -> Swift.Bool
+}
+extension WebBrowserDelegate {
+  public func webBrowser(_ webBrowser: ToolKit.WebBrowserViewController, didStartLoad url: Foundation.URL?)
+  public func webBrowser(_ webBrowser: ToolKit.WebBrowserViewController, didFinishLoad url: Foundation.URL?)
+  public func webBrowser(_ webBrowser: ToolKit.WebBrowserViewController, didFailLoad url: Foundation.URL?, withError error: Swift.Error)
+  public func webBrowserWillDismiss(_ webBrowser: ToolKit.WebBrowserViewController)
+  public func webBrowserDidDismiss(_ webBrowser: ToolKit.WebBrowserViewController)
+  public func webBrowser(_ webBrowser: ToolKit.WebBrowserViewController, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void) -> Swift.Bool
+}
+@objc @_inheritsConvenienceInitializers open class SafariActivity : UIKit.UIActivity {
+  open var url: Foundation.URL?
+  @objc override dynamic open var activityType: UIKit.UIActivity.ActivityType? {
+    @objc get
+  }
+  @objc override dynamic open var activityTitle: Swift.String? {
+    @objc get
+  }
+  @objc override dynamic open var activityImage: UIKit.UIImage? {
+    @objc get
+  }
+  @objc override dynamic open func canPerform(withActivityItems activityItems: [Any]) -> Swift.Bool
+  @objc override dynamic open func prepare(withActivityItems activityItems: [Any])
+  @objc override dynamic open func perform()
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension CGPoint {
+  public func dot(_ point: CoreGraphics.CGPoint) -> CoreGraphics.CGFloat
+  public func dist(_ point: CoreGraphics.CGPoint) -> CoreGraphics.CGFloat
+  public func normalized() -> CoreGraphics.CGPoint
+  public func length() -> CoreGraphics.CGFloat
+}
+public func += (point: inout CoreGraphics.CGPoint, right: CoreGraphics.CGFloat)
+public func -= (point: inout CoreGraphics.CGPoint, right: CoreGraphics.CGFloat)
+public func *= (point: inout CoreGraphics.CGPoint, right: CoreGraphics.CGFloat)
+public func /= (point: inout CoreGraphics.CGPoint, right: CoreGraphics.CGFloat)
+public func += (left: inout CoreGraphics.CGPoint, right: CoreGraphics.CGPoint)
+public func -= (left: inout CoreGraphics.CGPoint, right: CoreGraphics.CGPoint)
+public func *= (left: inout CoreGraphics.CGPoint, right: CoreGraphics.CGPoint)
+public func /= (left: inout CoreGraphics.CGPoint, right: CoreGraphics.CGPoint)
+public func + (point: CoreGraphics.CGPoint, right: CoreGraphics.CGFloat) -> CoreGraphics.CGPoint
+public func - (point: CoreGraphics.CGPoint, right: CoreGraphics.CGFloat) -> CoreGraphics.CGPoint
+public func * (point: CoreGraphics.CGPoint, right: CoreGraphics.CGFloat) -> CoreGraphics.CGPoint
+public func / (point: CoreGraphics.CGPoint, right: CoreGraphics.CGFloat) -> CoreGraphics.CGPoint
+public func + (left: CoreGraphics.CGPoint, right: CoreGraphics.CGPoint) -> CoreGraphics.CGPoint
+public func - (left: CoreGraphics.CGPoint, right: CoreGraphics.CGPoint) -> CoreGraphics.CGPoint
+public func * (left: CoreGraphics.CGPoint, right: CoreGraphics.CGPoint) -> CoreGraphics.CGPoint
+public func / (left: CoreGraphics.CGPoint, right: CoreGraphics.CGPoint) -> CoreGraphics.CGPoint
+extension UIView {
+  @available(*, deprecated, renamed: "snp.left")
+  public var snp_left: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.top")
+  public var snp_top: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.right")
+  public var snp_right: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.bottom")
+  public var snp_bottom: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.leading")
+  public var snp_leading: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.trailing")
+  public var snp_trailing: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.width")
+  public var snp_width: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.height")
+  public var snp_height: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.centerX")
+  public var snp_centerX: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.centerY")
+  public var snp_centerY: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.baseline")
+  public var snp_baseline: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  @available(*, deprecated, renamed: "snp.lastBaseline")
+  public var snp_lastBaseline: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  @available(iOS, deprecated, renamed: "snp.firstBaseline")
+  public var snp_firstBaseline: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.leftMargin")
+  public var snp_leftMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.topMargin")
+  public var snp_topMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.rightMargin")
+  public var snp_rightMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.bottomMargin")
+  public var snp_bottomMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.leadingMargin")
+  public var snp_leadingMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.trailingMargin")
+  public var snp_trailingMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.centerXWithinMargins")
+  public var snp_centerXWithinMargins: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.centerYWithinMargins")
+  public var snp_centerYWithinMargins: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.edges")
+  public var snp_edges: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.size")
+  public var snp_size: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.center")
+  public var snp_center: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.margins")
+  public var snp_margins: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  @available(iOS, deprecated, renamed: "snp.centerWithinMargins")
+  public var snp_centerWithinMargins: ToolKit.ConstraintItem {
+    get
+  }
+  @available(*, deprecated, renamed: "snp.prepareConstraints(_:)")
+  public func snp_prepareConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void) -> [ToolKit.Constraint]
+  @available(*, deprecated, renamed: "snp.makeConstraints(_:)")
+  public func snp_makeConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void)
+  @available(*, deprecated, renamed: "snp.remakeConstraints(_:)")
+  public func snp_remakeConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void)
+  @available(*, deprecated, renamed: "snp.updateConstraints(_:)")
+  public func snp_updateConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void)
+  @available(*, deprecated, renamed: "snp.removeConstraints()")
+  public func snp_removeConstraints()
+  public var snp: ToolKit.ConstraintViewDSL {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class ColorRing : UIKit.UIControl {
+  public var shouldDelayTouchesInScrollView: Swift.Bool
+  @objc override dynamic public var isTracking: Swift.Bool {
+    @objc get
+  }
+  public static var smallPatternImage: UIKit.UIImage
+  public static var patternImage: UIKit.UIImage
+  public var value: ToolKit.Color {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public func layoutSubviews()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class PXPGradientColor : ObjectiveC.NSObject {
+  @objc final public let colorSpace: ToolKit.PXPColorSpace
+  public func update(_ colors: [UIKit.UIColor], locations: [CoreGraphics.CGFloat])
+  @objc public init(colors: [UIKit.UIColor], locations: [CoreGraphics.CGFloat]?, colorSpace: ToolKit.PXPColorSpace?)
+  @objc override dynamic public init()
+  @objc convenience public init(startingColor: UIKit.UIColor, endingColor: UIKit.UIColor)
+  @objc convenience public init(colors: [UIKit.UIColor])
+  @objc public func draw(inRect rect: CoreGraphics.CGRect, angle: Swift.Double)
+  @objc public func draw(inBezierPath bezierPath: UIKit.UIBezierPath, angle: Swift.Double)
+  @objc deinit
+}
+public typealias ConstraintInterfaceLayoutDirection = UIKit.UIUserInterfaceLayoutDirection
+public struct ConstraintConfig {
+  public static var interfaceLayoutDirection: ToolKit.ConstraintInterfaceLayoutDirection
+}
+extension Array {
+  public func closest(value: Swift.Array<Element>.Iterator.Element, distance: (Swift.Array<Element>.Iterator.Element, Swift.Array<Element>.Iterator.Element) -> Swift.Double) -> Swift.Array<Element>.Iterator.Element?
+  public func closestIndex(value: Swift.Array<Element>.Iterator.Element, distance: (Swift.Array<Element>.Iterator.Element, Swift.Array<Element>.Iterator.Element) -> Swift.Double) -> Swift.Int?
+}
+@objc public class KeyboardLayout : ObjectiveC.NSObject {
+  @objc public var keyboardHeight: CoreGraphics.CGFloat
+  @objc public var keyboardShowing: Swift.Bool
+  @objc public var willShow: () -> ()
+  @objc public var willHide: () -> ()
+  @objc public var didShow: () -> ()
+  @objc public var didHide: () -> ()
+  @objc public var performLayoutOnWillShow: Swift.Bool
+  @objc public var performLayoutOnWillHide: Swift.Bool
+  @objc public var performLayoutOnDidShow: Swift.Bool
+  @objc public var performLayoutOnDidHide: Swift.Bool
+  @objc public init(viewForKeyboardIntersection: @escaping () -> UIKit.UIView, layoutForKeyboardFrameChange: @escaping (CoreGraphics.CGFloat, Foundation.TimeInterval) -> ())
+  @objc deinit
+  @objc public func recomputeLayout()
+  @objc override dynamic public init()
+}
+@objc @_inheritsConvenienceInitializers open class PassthroughView : UIKit.UIView {
+  @objc override dynamic open func point(inside point: CoreGraphics.CGPoint, with event: UIKit.UIEvent?) -> Swift.Bool
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+@available(iOS 9.0, OSX 10.11, *)
+public struct ConstraintLayoutGuideDSL : ToolKit.ConstraintAttributesDSL {
+  @discardableResult
+  public func prepareConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void) -> [ToolKit.Constraint]
+  public func makeConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void)
+  public func remakeConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void)
+  public func updateConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void)
+  public func removeConstraints()
+  public var target: Swift.AnyObject? {
+    get
+  }
+}
+@objc open class SS3DFlipAnimatedTransitioning : ObjectiveC.NSObject, UIKit.UIViewControllerAnimatedTransitioning {
+  public enum Mode : Swift.Int {
+    case presented
+    case dismissed
+    public typealias RawValue = Swift.Int
+    public init?(rawValue: Swift.Int)
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  open var fetchSourceView: (ToolKit.SS3DFlipAnimatedTransitioning.Mode) -> (UIKit.UIView?)
+  public init(duration transitionDuration: Foundation.TimeInterval, source sourceView: UIKit.UIView, destination destinationSize: CoreGraphics.CGSize, fullScreen: Swift.Bool = false)
+  @objc open func transitionDuration(using transitionContext: UIKit.UIViewControllerContextTransitioning?) -> Foundation.TimeInterval
+  @objc open func animateTransition(using transitionContext: UIKit.UIViewControllerContextTransitioning)
+  @objc deinit
+  @objc override dynamic public init()
+}
+public typealias ConstraintView = UIKit.UIView
+@objc open class SS3DFlipPresentationController : UIKit.UIPresentationController {
+  public init(presentedViewController: UIKit.UIViewController, presenting presentingViewController: UIKit.UIViewController?, size destinationSize: CoreGraphics.CGSize, fullScreen: Swift.Bool = false)
+  @objc override dynamic open func presentationTransitionWillBegin()
+  @objc override dynamic open func presentationTransitionDidEnd(_ completed: Swift.Bool)
+  @objc override dynamic open func dismissalTransitionWillBegin()
+  @objc override dynamic open func dismissalTransitionDidEnd(_ completed: Swift.Bool)
+  @objc override dynamic open var frameOfPresentedViewInContainerView: CoreGraphics.CGRect {
+    @objc get
+  }
+  @objc override dynamic open var shouldPresentInFullscreen: Swift.Bool {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init(presentedViewController: UIKit.UIViewController, presenting presentingViewController: UIKit.UIViewController?)
+}
+public protocol MenuItem {
+  typealias MenuViewType = (UIKit.UIView & ToolKit.MenuItemView & ToolKit.MenuThemeable)
+  var view: Self.MenuViewType { get }
+  func performAction()
+}
+public struct SeparatorMenuItem : Swift.Equatable, ToolKit.MenuItem {
+  public var view: (UIKit.UIView & ToolKit.MenuItemView & ToolKit.MenuThemeable) {
+    get
+  }
+  public init()
+  public static func == (lhs: ToolKit.SeparatorMenuItem, rhs: ToolKit.SeparatorMenuItem) -> Swift.Bool
+  public func performAction()
+}
+extension UIKeyModifierFlags {
+  public var symbols: [Swift.String] {
+    get
+  }
+}
+public struct ShortcutMenuItem : Swift.Equatable, ToolKit.MenuItem {
+  public static var displayShortcuts: Swift.Bool
+  public struct Shortcut : Swift.Equatable {
+    public let modifiers: UIKit.UIKeyModifierFlags
+    public let key: Swift.String
+    public let title: Swift.String
+    public static func == (a: ToolKit.ShortcutMenuItem.Shortcut, b: ToolKit.ShortcutMenuItem.Shortcut) -> Swift.Bool
+  }
+  public var action: () -> Swift.Void
+  public let name: Swift.String
+  public let shortcut: ToolKit.ShortcutMenuItem.Shortcut?
+  public init(name: Swift.String, shortcut: (UIKit.UIKeyModifierFlags, Swift.String)? = nil, action: @escaping () -> Swift.Void)
+  public var view: (UIKit.UIView & ToolKit.MenuItemView & ToolKit.MenuThemeable) {
+    get
+  }
+  public static func == (lhs: ToolKit.ShortcutMenuItem, rhs: ToolKit.ShortcutMenuItem) -> Swift.Bool
+  public func performAction()
+}
+extension ShortcutMenuItem {
+  public var keyCommand: UIKit.UIKeyCommand? {
+    get
+  }
+}
+public protocol ConstraintRelatableTarget {
+}
+extension Int : ToolKit.ConstraintRelatableTarget {
+}
+extension UInt : ToolKit.ConstraintRelatableTarget {
+}
+extension Float : ToolKit.ConstraintRelatableTarget {
+}
+extension Double : ToolKit.ConstraintRelatableTarget {
+}
+extension CGFloat : ToolKit.ConstraintRelatableTarget {
+}
+extension CGSize : ToolKit.ConstraintRelatableTarget {
+}
+extension CGPoint : ToolKit.ConstraintRelatableTarget {
+}
+extension UIEdgeInsets : ToolKit.ConstraintRelatableTarget {
+}
+@available(iOS 11.0, tvOS 11.0, *)
+extension NSDirectionalEdgeInsets : ToolKit.ConstraintRelatableTarget {
+}
+extension ConstraintItem : ToolKit.ConstraintRelatableTarget {
+}
+extension UIView : ToolKit.ConstraintRelatableTarget {
+}
+@available(iOS 9.0, OSX 10.11, *)
+extension UILayoutGuide : ToolKit.ConstraintRelatableTarget {
+}
+@objc @_inheritsConvenienceInitializers public class LayoutConstraint : UIKit.NSLayoutConstraint {
+  public var label: Swift.String? {
+    get
+    set
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class GradientView : UIKit.UIView {
+  public var gradient: ToolKit.PXPGradientColor? {
+    get
+    set
+  }
+  public var angle: Swift.Double {
+    get
+    set
+  }
+  public var showTransparentPattern: Swift.Bool {
+    get
+    set
+  }
+  @objc dynamic public init()
+  public init(gradient: ToolKit.PXPGradientColor, frame: CoreGraphics.CGRect)
+  public init(angle: Swift.Double, colors: [UIKit.UIColor], locations: [CoreGraphics.CGFloat])
+  public init(angle: Swift.Double, start: UIKit.UIColor, end: UIKit.UIColor)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public func draw(_ rect: CoreGraphics.CGRect)
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+}
+public protocol LayoutConstraintItem : AnyObject {
+}
+@available(iOS 9.0, OSX 10.11, *)
+extension UILayoutGuide : ToolKit.LayoutConstraintItem {
+}
+extension UIView : ToolKit.LayoutConstraintItem {
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class ConstraintMakerEditable : ToolKit.ConstraintMakerPriortizable {
+  @discardableResult
+  public func multipliedBy(_ amount: ToolKit.ConstraintMultiplierTarget) -> ToolKit.ConstraintMakerEditable
+  @discardableResult
+  public func dividedBy(_ amount: ToolKit.ConstraintMultiplierTarget) -> ToolKit.ConstraintMakerEditable
+  @discardableResult
+  public func offset(_ amount: ToolKit.ConstraintOffsetTarget) -> ToolKit.ConstraintMakerEditable
+  @discardableResult
+  public func inset(_ amount: ToolKit.ConstraintInsetTarget) -> ToolKit.ConstraintMakerEditable
+  @available(iOS 11.0, tvOS 11.0, *)
+  @discardableResult
+  public func inset(_ amount: ToolKit.ConstraintDirectionalInsetTarget) -> ToolKit.ConstraintMakerEditable
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class ConstraintMakerExtendable : ToolKit.ConstraintMakerRelatable {
+  public var left: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var top: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var bottom: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var right: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var leading: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var trailing: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var width: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var height: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var centerX: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var centerY: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(*, deprecated, renamed: "lastBaseline")
+  public var baseline: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var lastBaseline: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  public var firstBaseline: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leftMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var rightMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var topMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var bottomMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leadingMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var trailingMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerXWithinMargins: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerYWithinMargins: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var edges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var horizontalEdges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var verticalEdges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalEdges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalHorizontalEdges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalVerticalEdges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var size: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var margins: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var directionalMargins: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerWithinMargins: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @objc deinit
+}
+public protocol ConstraintInsetTarget : ToolKit.ConstraintConstantTarget {
+}
+extension Int : ToolKit.ConstraintInsetTarget {
+}
+extension UInt : ToolKit.ConstraintInsetTarget {
+}
+extension Float : ToolKit.ConstraintInsetTarget {
+}
+extension Double : ToolKit.ConstraintInsetTarget {
+}
+extension CGFloat : ToolKit.ConstraintInsetTarget {
+}
+extension UIEdgeInsets : ToolKit.ConstraintInsetTarget {
+}
+@_inheritsConvenienceInitializers @objc public class BackButton : UIKit.UIButton {
+  @objc public var closeIconAmount: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public func draw(_ rect: CoreGraphics.CGRect)
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+@objc @_inheritsConvenienceInitializers public class HeaderDropPresentationController : UIKit.UIPresentationController, UIKit.UIViewControllerTransitioningDelegate, UIKit.UIViewControllerAnimatedTransitioning {
+  public var blurEffectStyle: UIKit.UIBlurEffect.Style
+  @objc override dynamic public init(presentedViewController: UIKit.UIViewController, presenting presentingViewController: UIKit.UIViewController?)
+  @objc public func presentationController(forPresented presented: UIKit.UIViewController, presenting: UIKit.UIViewController?, source: UIKit.UIViewController) -> UIKit.UIPresentationController?
+  @objc override dynamic public func presentationTransitionWillBegin()
+  @objc override dynamic public func dismissalTransitionDidEnd(_ completed: Swift.Bool)
+  @objc override dynamic public var shouldPresentInFullscreen: Swift.Bool {
+    @objc get
+  }
+  @objc public func animationController(forPresented presented: UIKit.UIViewController, presenting: UIKit.UIViewController, source: UIKit.UIViewController) -> UIKit.UIViewControllerAnimatedTransitioning?
+  @objc public func animationController(forDismissed dismissed: UIKit.UIViewController) -> UIKit.UIViewControllerAnimatedTransitioning?
+  @objc public func transitionDuration(using transitionContext: UIKit.UIViewControllerContextTransitioning?) -> Foundation.TimeInterval
+  @objc public func animateTransition(using transitionContext: UIKit.UIViewControllerContextTransitioning)
+  @objc deinit
+}
+public protocol MenuThemeable {
+  func applyTheme(_ theme: ToolKit.MenuTheme)
+}
+public protocol MenuTheme {
+  var font: UIKit.UIFont { get }
+  var textColor: UIKit.UIColor { get }
+  var brightTintColor: UIKit.UIColor { get }
+  var darkTintColor: UIKit.UIColor { get }
+  var highlightedTextColor: UIKit.UIColor { get }
+  var highlightedBackgroundColor: UIKit.UIColor { get }
+  var backgroundTint: UIKit.UIColor { get }
+  var backgroundHoverTint: UIKit.UIColor { get }
+  var gestureBarTint: UIKit.UIColor { get }
+  var blurEffect: UIKit.UIBlurEffect { get }
+  var shadowColor: UIKit.UIColor { get }
+  var shadowOpacity: Swift.Float { get }
+  var shadowRadius: CoreGraphics.CGFloat { get }
+  var separatorColor: UIKit.UIColor { get }
+}
+public struct LightMenuTheme : ToolKit.MenuTheme {
+  public let font: UIKit.UIFont
+  public let textColor: UIKit.UIColor
+  public let brightTintColor: UIKit.UIColor
+  public let darkTintColor: UIKit.UIColor
+  public let highlightedTextColor: UIKit.UIColor
+  public let highlightedBackgroundColor: UIKit.UIColor
+  public let backgroundTint: UIKit.UIColor
+  public let backgroundHoverTint: UIKit.UIColor
+  public let gestureBarTint: UIKit.UIColor
+  public let blurEffect: UIKit.UIBlurEffect
+  public let shadowColor: UIKit.UIColor
+  public let shadowOpacity: Swift.Float
+  public let shadowRadius: CoreGraphics.CGFloat
+  public let separatorColor: UIKit.UIColor
+  public init()
+}
+@available(iOS 9.0, *)
+public typealias ConstraintLayoutGuide = UIKit.UILayoutGuide
+@_inheritsConvenienceInitializers @objc public class ColorPickerViewController : UIKit.UIViewController {
+  @objc public var rgbaChanged: ([Swift.Float]) -> ()
+  @objc public func set(withUIColor color: UIKit.UIColor)
+  @objc override dynamic public func viewDidLoad()
+  @objc deinit
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+extension UIGestureRecognizer.State {
+  public var isTrackingState: Swift.Bool {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class ConstraintMakerRelatable {
+  @discardableResult
+  public func equalTo(_ other: ToolKit.ConstraintRelatableTarget, _ file: Swift.String = #file, _ line: Swift.UInt = #line) -> ToolKit.ConstraintMakerEditable
+  @discardableResult
+  public func equalToSuperview(_ file: Swift.String = #file, _ line: Swift.UInt = #line) -> ToolKit.ConstraintMakerEditable
+  @discardableResult
+  public func lessThanOrEqualTo(_ other: ToolKit.ConstraintRelatableTarget, _ file: Swift.String = #file, _ line: Swift.UInt = #line) -> ToolKit.ConstraintMakerEditable
+  @discardableResult
+  public func lessThanOrEqualToSuperview(_ file: Swift.String = #file, _ line: Swift.UInt = #line) -> ToolKit.ConstraintMakerEditable
+  @discardableResult
+  public func greaterThanOrEqualTo(_ other: ToolKit.ConstraintRelatableTarget, _ file: Swift.String = #file, line: Swift.UInt = #line) -> ToolKit.ConstraintMakerEditable
+  @discardableResult
+  public func greaterThanOrEqualToSuperview(_ file: Swift.String = #file, line: Swift.UInt = #line) -> ToolKit.ConstraintMakerEditable
+  @objc deinit
+}
+extension UIKeyCommand {
+  convenience public init(input: Swift.String, modifierFlags: UIKit.UIKeyModifierFlags, keyAction: @escaping () -> (), discoverabilityTitle: Swift.String)
+}
+public enum WebBrowserLanguage {
+  case english
+  case simplifiedChinese
+  case traditionalChinese
+  case korean
+  case japanese
+  public static func == (a: ToolKit.WebBrowserLanguage, b: ToolKit.WebBrowserLanguage) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+@_inheritsConvenienceInitializers @objc open class WebBrowserViewController : UIKit.UIViewController {
+  weak open var delegate: ToolKit.WebBrowserDelegate?
+  open var language: ToolKit.WebBrowserLanguage {
+    get
+    set
+  }
+  @objc open var tintColor: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  open var barTintColor: UIKit.UIColor? {
+    get
+    set
+  }
+  open var isToolbarHidden: Swift.Bool {
+    get
+    set
+  }
+  open var toolbarItemSpace: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  open var isShowActionBarButton: Swift.Bool {
+    get
+    set
+  }
+  open var customApplicationActivities: [UIKit.UIActivity]
+  open var isShowURLInNavigationBarWhenLoading: Swift.Bool
+  open var isShowPageTitleInNavigationBar: Swift.Bool
+  public var onOpenExternalAppHandler: ((Swift.Bool) -> Swift.Void)?
+  @objc override dynamic open func viewDidLoad()
+  @objc override dynamic open func viewWillAppear(_ animated: Swift.Bool)
+  @objc override dynamic open func viewWillDisappear(_ animated: Swift.Bool)
+  convenience public init(configuration: WebKit.WKWebViewConfiguration)
+  @objc open class func rootNavigationWebBrowser(webBrowser: ToolKit.WebBrowserViewController) -> UIKit.UINavigationController
+  @objc deinit
+  open func loadRequest(_ request: Foundation.URLRequest)
+  @objc open func loadURL(_ url: Foundation.URL)
+  open func loadURLString(_ urlString: Swift.String)
+  open func loadHTMLString(_ htmlString: Swift.String, baseURL: Foundation.URL?)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+extension WebBrowserViewController {
+  @objc override dynamic open func observeValue(forKeyPath keyPath: Swift.String?, of object: Any?, change: [Foundation.NSKeyValueChangeKey : Any]?, context: Swift.UnsafeMutableRawPointer?)
+}
+extension WebBrowserViewController : WebKit.WKNavigationDelegate {
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didStartProvisionalNavigation navigation: WebKit.WKNavigation!)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFailProvisionalNavigation navigation: WebKit.WKNavigation!, withError error: Swift.Error)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: Swift.Error)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+}
+extension WebBrowserViewController : WebKit.WKUIDelegate {
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, createWebViewWith configuration: WebKit.WKWebViewConfiguration, for navigationAction: WebKit.WKNavigationAction, windowFeatures: WebKit.WKWindowFeatures) -> WebKit.WKWebView?
+}
+@_hasMissingDesignatedInitializers final public class ConstraintItem {
+  @objc deinit
+}
+public func == (lhs: ToolKit.ConstraintItem, rhs: ToolKit.ConstraintItem) -> Swift.Bool
+public protocol ConstraintConstantTarget {
+}
+extension CGPoint : ToolKit.ConstraintConstantTarget {
+}
+extension CGSize : ToolKit.ConstraintConstantTarget {
+}
+extension UIEdgeInsets : ToolKit.ConstraintConstantTarget {
+}
+@available(iOS 11.0, tvOS 11.0, *)
+extension NSDirectionalEdgeInsets : ToolKit.ConstraintConstantTarget {
+}
+@available(iOS 8.0, *)
+public struct ConstraintLayoutSupportDSL : ToolKit.ConstraintDSL {
+  public var target: Swift.AnyObject? {
+    get
+  }
+  public var top: ToolKit.ConstraintItem {
+    get
+  }
+  public var bottom: ToolKit.ConstraintItem {
+    get
+  }
+  public var height: ToolKit.ConstraintItem {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class WifiAddress : ObjectiveC.NSObject {
+  @objc public static var current: Swift.String? {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc extension UIFont {
+  @objc dynamic public var scaled: UIKit.UIFont {
+    @objc get
+  }
+  @objc dynamic public func scaledFont(withMaxSize size: CoreGraphics.CGFloat) -> UIKit.UIFont
+}
+@_inheritsConvenienceInitializers @objc public class DynamicType : ObjectiveC.NSObject {
+  @objc public class func scaledFont(for font: UIKit.UIFont) -> UIKit.UIFont
+  @objc public class func scaledFont(for font: UIKit.UIFont, maxSize size: CoreGraphics.CGFloat) -> UIKit.UIFont
+  @objc public class func scaledFont(withName name: Swift.String, textStyle: UIKit.UIFont.TextStyle) -> UIKit.UIFont
+  @objc public class func scaledValue(for value: CoreGraphics.CGFloat) -> CoreGraphics.CGFloat
+  @objc deinit
+  @objc override dynamic public init()
+}
+public protocol ConstraintDSL {
+  var target: Swift.AnyObject? { get }
+  func setLabel(_ value: Swift.String?)
+  func label() -> Swift.String?
+}
+extension ConstraintDSL {
+  public func setLabel(_ value: Swift.String?)
+  public func label() -> Swift.String?
+}
+public protocol ConstraintBasicAttributesDSL : ToolKit.ConstraintDSL {
+}
+extension ConstraintBasicAttributesDSL {
+  public var left: ToolKit.ConstraintItem {
+    get
+  }
+  public var top: ToolKit.ConstraintItem {
+    get
+  }
+  public var right: ToolKit.ConstraintItem {
+    get
+  }
+  public var bottom: ToolKit.ConstraintItem {
+    get
+  }
+  public var leading: ToolKit.ConstraintItem {
+    get
+  }
+  public var trailing: ToolKit.ConstraintItem {
+    get
+  }
+  public var width: ToolKit.ConstraintItem {
+    get
+  }
+  public var height: ToolKit.ConstraintItem {
+    get
+  }
+  public var centerX: ToolKit.ConstraintItem {
+    get
+  }
+  public var centerY: ToolKit.ConstraintItem {
+    get
+  }
+  public var edges: ToolKit.ConstraintItem {
+    get
+  }
+  public var directionalEdges: ToolKit.ConstraintItem {
+    get
+  }
+  public var horizontalEdges: ToolKit.ConstraintItem {
+    get
+  }
+  public var verticalEdges: ToolKit.ConstraintItem {
+    get
+  }
+  public var directionalHorizontalEdges: ToolKit.ConstraintItem {
+    get
+  }
+  public var directionalVerticalEdges: ToolKit.ConstraintItem {
+    get
+  }
+  public var size: ToolKit.ConstraintItem {
+    get
+  }
+  public var center: ToolKit.ConstraintItem {
+    get
+  }
+}
+public protocol ConstraintAttributesDSL : ToolKit.ConstraintBasicAttributesDSL {
+}
+extension ConstraintAttributesDSL {
+  @available(*, deprecated, renamed: "lastBaseline")
+  public var baseline: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  public var lastBaseline: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  public var firstBaseline: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leftMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var topMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var rightMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var bottomMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leadingMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var trailingMargin: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerXWithinMargins: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerYWithinMargins: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var margins: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var directionalMargins: ToolKit.ConstraintItem {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerWithinMargins: ToolKit.ConstraintItem {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class ConstraintMakerFinalizable {
+  @discardableResult
+  public func labeled(_ label: Swift.String) -> ToolKit.ConstraintMakerFinalizable
+  public var constraint: ToolKit.Constraint {
+    get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ConstraintMaker {
+  public var left: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var top: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var bottom: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var right: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var leading: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var trailing: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var width: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var height: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var centerX: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var centerY: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(*, deprecated, renamed: "lastBaseline")
+  public var baseline: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var lastBaseline: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, OSX 10.11, *)
+  public var firstBaseline: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leftMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var rightMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var topMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var bottomMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var leadingMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var trailingMargin: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerXWithinMargins: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerYWithinMargins: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var edges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var horizontalEdges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var verticalEdges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalEdges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalHorizontalEdges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var directionalVerticalEdges: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var size: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  public var center: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var margins: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var directionalMargins: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @available(iOS 8.0, *)
+  public var centerWithinMargins: ToolKit.ConstraintMakerExtendable {
+    get
+  }
+  @objc deinit
+}
+public protocol ConstraintDirectionalInsetTarget : ToolKit.ConstraintConstantTarget {
+}
+@available(iOS 11.0, tvOS 11.0, *)
+extension NSDirectionalEdgeInsets : ToolKit.ConstraintDirectionalInsetTarget {
+}
+public protocol ConstraintOffsetTarget : ToolKit.ConstraintConstantTarget {
+}
+extension Int : ToolKit.ConstraintOffsetTarget {
+}
+extension UInt : ToolKit.ConstraintOffsetTarget {
+}
+extension Float : ToolKit.ConstraintOffsetTarget {
+}
+extension Double : ToolKit.ConstraintOffsetTarget {
+}
+extension CGFloat : ToolKit.ConstraintOffsetTarget {
+}
+@objc extension UIResponder {
+  @objc dynamic public func hideAssistantBar()
+}
+@available(iOS 9.0, OSX 10.11, *)
+extension UILayoutGuide {
+  public var snp: ToolKit.ConstraintLayoutGuideDSL {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class AutolayoutTableView : UIKit.UITableView {
+  @objc override dynamic public init(frame: CoreGraphics.CGRect, style: UIKit.UITableView.Style)
+  @objc override dynamic public var intrinsicContentSize: CoreGraphics.CGSize {
+    @objc get
+  }
+  @objc override dynamic public var contentSize: CoreGraphics.CGSize {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public func endUpdates()
+  @objc override dynamic public func insertRows(at indexPaths: [Foundation.IndexPath], with animation: UIKit.UITableView.RowAnimation)
+  @objc override dynamic public func deleteRows(at indexPaths: [Foundation.IndexPath], with animation: UIKit.UITableView.RowAnimation)
+  @objc override dynamic public func insertSections(_ sections: Foundation.IndexSet, with animation: UIKit.UITableView.RowAnimation)
+  @objc override dynamic public func deleteSections(_ sections: Foundation.IndexSet, with animation: UIKit.UITableView.RowAnimation)
+  @objc override dynamic public func reloadData()
+  @objc deinit
+}
+@objc open class SS3DFlipTransitioningDelegate : ObjectiveC.NSObject, UIKit.UIViewControllerTransitioningDelegate {
+  public typealias Mode = ToolKit.SS3DFlipAnimatedTransitioning.Mode
+  @objc public var useAnimation: Swift.Bool
+  open var fetchSourceView: (ToolKit.SS3DFlipTransitioningDelegate.Mode) -> (UIKit.UIView?)
+  @objc open var adaptivePresentationDelegate: UIKit.UIAdaptivePresentationControllerDelegate?
+  @objc public init(duration transitionDuration: Foundation.TimeInterval, source sourceView: UIKit.UIView, size destinationSize: CoreGraphics.CGSize)
+  @objc public init(duration transitionDuration: Foundation.TimeInterval, source sourceView: UIKit.UIView)
+  @objc open func presentationController(forPresented presented: UIKit.UIViewController, presenting: UIKit.UIViewController?, source: UIKit.UIViewController) -> UIKit.UIPresentationController?
+  @objc open func animationController(forDismissed dismissed: UIKit.UIViewController) -> UIKit.UIViewControllerAnimatedTransitioning?
+  @objc open func animationController(forPresented presented: UIKit.UIViewController, presenting: UIKit.UIViewController, source: UIKit.UIViewController) -> UIKit.UIViewControllerAnimatedTransitioning?
+  @objc deinit
+  @objc override dynamic public init()
+}
+public protocol ConstraintPriorityTarget {
+  var constraintPriorityTargetValue: Swift.Float { get }
+}
+extension Int : ToolKit.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+extension UInt : ToolKit.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+extension Float : ToolKit.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+extension Double : ToolKit.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+extension CGFloat : ToolKit.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+extension UILayoutPriority : ToolKit.ConstraintPriorityTarget {
+  public var constraintPriorityTargetValue: Swift.Float {
+    get
+  }
+}
+@objc public class MenuActionButton : UIKit.UIControl, ToolKit.Hoverable, ToolKit.MenuThemeable {
+  public var action: (ToolKit.MenuActionButton) -> ()
+  public var isHovering: Swift.Bool {
+    get
+    set
+  }
+  @objc override dynamic public var intrinsicContentSize: CoreGraphics.CGSize {
+    @objc get
+  }
+  @objc dynamic public init()
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  public func setImage(_ image: UIKit.UIImage?)
+  public func applyTheme(_ theme: ToolKit.MenuTheme)
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+}
+extension UIView {
+  public var firstResponder: UIKit.UIView? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class AssociatedObjectKeys {
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class AssociatedObjectKey<T> : ToolKit.AssociatedObjectKeys {
+  public init(_ key: Swift.String)
+  @objc deinit
+}
+extension NSObject {
+  public func setAssociatedObject<T>(_ value: T?, forKey key: ToolKit.AssociatedObjectKey<T>, policy: ObjectiveC.objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+  public func getAssociatedObject<T>(forKey key: ToolKit.AssociatedObjectKey<T>) -> T?
+  @discardableResult
+  public func removeAssociatedObject<T>(forKey key: ToolKit.AssociatedObjectKey<T>) -> T?
+  public subscript<T>(key: ToolKit.AssociatedObjectKey<T>) -> T? {
+    get
+    set
+  }
+  public func removeAllAssociatedObjects()
+}
+public protocol MenuItemView {
+  var highlighted: Swift.Bool { get set }
+  var highlightPosition: CoreGraphics.CGPoint { get set }
+  var didHighlight: () -> Swift.Void { get set }
+  var initialFocusedRect: CoreGraphics.CGRect? { get }
+  var updateLayout: () -> Swift.Void { get set }
+  func startSelectionAnimation(completion: @escaping () -> Swift.Void)
+}
+extension MenuItemView {
+  public func startSelectionAnimation(completion: @escaping () -> Swift.Void)
+  public var initialFocusedRect: CoreGraphics.CGRect? {
+    get
+  }
+}
+@objc public class ShortcutMenuItemView : UIKit.UIView, ToolKit.MenuItemView, ToolKit.MenuThemeable {
+  public init(item: ToolKit.ShortcutMenuItem)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  public func startSelectionAnimation(completion: @escaping () -> Swift.Void)
+  public var highlighted: Swift.Bool {
+    get
+    set
+  }
+  public var highlightPosition: CoreGraphics.CGPoint
+  public var didHighlight: () -> Swift.Void
+  public var updateLayout: () -> Swift.Void
+  public func applyTheme(_ theme: ToolKit.MenuTheme)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@available(iOS 8.0, *)
+public typealias ConstraintLayoutSupport = UIKit.UILayoutSupport
+@objc @_inheritsConvenienceInitializers public class AutolayoutCompatibleView : UIKit.UIView {
+  @objc override dynamic public var intrinsicContentSize: CoreGraphics.CGSize {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+@objc extension UIApplication {
+  @objc public static var hasNotchedDisplay: Swift.Bool {
+    @objc get
+  }
+}
+@available(iOS 11.0, tvOS 11.0, *)
+public typealias ConstraintDirectionalInsets = UIKit.NSDirectionalEdgeInsets
+public struct ConstraintViewDSL : ToolKit.ConstraintAttributesDSL {
+  @discardableResult
+  public func prepareConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void) -> [ToolKit.Constraint]
+  public func makeConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void)
+  public func remakeConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void)
+  public func updateConstraints(_ closure: (ToolKit.ConstraintMaker) -> Swift.Void)
+  public func removeConstraints()
+  public var contentHuggingHorizontalPriority: Swift.Float {
+    get
+    nonmutating set
+  }
+  public var contentHuggingVerticalPriority: Swift.Float {
+    get
+    nonmutating set
+  }
+  public var contentCompressionResistanceHorizontalPriority: Swift.Float {
+    get
+    nonmutating set
+  }
+  public var contentCompressionResistanceVerticalPriority: Swift.Float {
+    get
+    nonmutating set
+  }
+  public var target: Swift.AnyObject? {
+    get
+  }
+}
+public typealias ConstraintInsets = UIKit.UIEdgeInsets
+@available(iOS 8.0, *)
+extension UILayoutSupport {
+  public var snp: ToolKit.ConstraintLayoutSupportDSL {
+    get
+  }
+}
+extension LayoutConstraint {
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class ConstraintMakerPriortizable : ToolKit.ConstraintMakerFinalizable {
+  @discardableResult
+  public func priority(_ amount: ToolKit.ConstraintPriority) -> ToolKit.ConstraintMakerFinalizable
+  @discardableResult
+  public func priority(_ amount: ToolKit.ConstraintPriorityTarget) -> ToolKit.ConstraintMakerFinalizable
+  @available(*, deprecated, message: "Use priority(.required) instead.")
+  @discardableResult
+  public func priorityRequired() -> ToolKit.ConstraintMakerFinalizable
+  @available(*, deprecated, message: "Use priority(.high) instead.")
+  @discardableResult
+  public func priorityHigh() -> ToolKit.ConstraintMakerFinalizable
+  @available(*, deprecated, message: "Use priority(.medium) instead.")
+  @discardableResult
+  public func priorityMedium() -> ToolKit.ConstraintMakerFinalizable
+  @available(*, deprecated, message: "Use priority(.low) instead.")
+  @discardableResult
+  public func priorityLow() -> ToolKit.ConstraintMakerFinalizable
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ConstraintDescription {
+  @objc deinit
+}
+public struct ConstraintPriority : Swift.ExpressibleByFloatLiteral, Swift.Equatable, Swift.Strideable {
+  public typealias FloatLiteralType = Swift.Float
+  public let value: Swift.Float
+  public init(floatLiteral value: Swift.Float)
+  public init(_ value: Swift.Float)
+  public static var required: ToolKit.ConstraintPriority {
+    get
+  }
+  public static var high: ToolKit.ConstraintPriority {
+    get
+  }
+  public static var medium: ToolKit.ConstraintPriority {
+    get
+  }
+  public static var low: ToolKit.ConstraintPriority {
+    get
+  }
+  public static func == (lhs: ToolKit.ConstraintPriority, rhs: ToolKit.ConstraintPriority) -> Swift.Bool
+  public func advanced(by n: ToolKit.ConstraintPriority.FloatLiteralType) -> ToolKit.ConstraintPriority
+  public func distance(to other: ToolKit.ConstraintPriority) -> ToolKit.ConstraintPriority.FloatLiteralType
+  public typealias Stride = ToolKit.ConstraintPriority.FloatLiteralType
+}
+extension ToolKit.MenuView.Alignment : Swift.Equatable {}
+extension ToolKit.MenuView.Alignment : Swift.Hashable {}
+extension ToolKit.SS3DFlipAnimatedTransitioning.Mode : Swift.Equatable {}
+extension ToolKit.SS3DFlipAnimatedTransitioning.Mode : Swift.Hashable {}
+extension ToolKit.SS3DFlipAnimatedTransitioning.Mode : Swift.RawRepresentable {}
+extension ToolKit.WebBrowserLanguage : Swift.Equatable {}
+extension ToolKit.WebBrowserLanguage : Swift.Hashable {}

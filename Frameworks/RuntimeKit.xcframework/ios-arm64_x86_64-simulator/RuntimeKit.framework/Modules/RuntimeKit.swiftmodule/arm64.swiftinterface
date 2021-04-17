@@ -1,0 +1,204 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target arm64-apple-ios12.4-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name RuntimeKit
+import AVKit
+import Foundation
+@_exported import RuntimeKit
+import Swift
+import ToolKit
+import UIKit
+@objc public protocol ProjectCollectionRepositoryDelegate {
+  @objc func repository(_ repository: RuntimeKit.LocalProjectRepository, didInsertProjectAtIndexPath indexPath: Foundation.IndexPath)
+  @objc func repository(_ repository: RuntimeKit.LocalProjectRepository, didRemoveProjectAtIndexPath indexPath: Foundation.IndexPath)
+  @objc func repository(_ repository: RuntimeKit.LocalProjectRepository, didModifyProjectAtIndexPath indexPath: Foundation.IndexPath)
+  @objc func repository(_ repository: RuntimeKit.LocalProjectRepository, didInsertCollectionAtIndex index: Swift.Int)
+  @objc func repository(_ repository: RuntimeKit.LocalProjectRepository, didRemoveCollectionAtIndex index: Swift.Int)
+  @objc func repository(_ repository: RuntimeKit.LocalProjectRepository, reloadedCollectionAtIndex index: Swift.Int)
+  @objc func repositoryDidReload(_ repository: RuntimeKit.LocalProjectRepository)
+}
+@_inheritsConvenienceInitializers @objc public class LocalProjectRepository : RuntimeKit.DirectoryMonitor, RuntimeKit.ProjectCollectionDelegate {
+  @objc weak public var delegate: RuntimeKit.ProjectCollectionRepositoryDelegate?
+  @objc deinit
+  @objc public var collections: [RuntimeKit.ProjectCollection] {
+    @objc get
+  }
+  @objc public func isCollectionVisibleAtIndex(_ index: Swift.Int) -> Swift.Bool
+  @objc public func setCollectionVisible(atIndex index: Swift.Int, visible: Swift.Bool)
+  @objc public func localizedNameAtIndex(_ index: Swift.Int) -> Swift.String?
+  @objc public func applyLocalizationKeys(_ localizationKeys: [Swift.String : Swift.String])
+  @objc public func createCollection(withName name: Swift.String) -> Swift.Bool
+  override public func shouldManageUrl(_ url: Foundation.URL) -> Swift.Bool
+  override public func urlCacheUpdated()
+  override public func itemChanged(_ url: Foundation.URL, change: RuntimeKit.DirectoryMonitor.ChangeType)
+  @objc public func projectCollection(_ collection: RuntimeKit.ProjectCollection, removedProjectAtIndex index: Swift.Int)
+  @objc public func projectCollection(_ collection: RuntimeKit.ProjectCollection, insertedProjectAtIndex index: Swift.Int)
+  @objc public func projectCollection(_ collection: RuntimeKit.ProjectCollection, modifiedProjectAtIndex index: Swift.Int)
+  @objc public func reloadProjectCollection(_ collection: RuntimeKit.ProjectCollection)
+  @objc public func indexPath(for project: RuntimeKit.Project) -> Foundation.IndexPath?
+  @objc override public init(url: Foundation.URL, monitorForUpdates: Swift.Bool)
+}
+@objc public enum AssetContentType : Swift.Int {
+  case library
+  case media
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class AssetContent : ObjectiveC.NSObject {
+  @objc public var type: RuntimeKit.AssetContentType
+  @objc public init(library: RuntimeKit.AssetLibrary)
+  @objc public init(media: Swift.String)
+  @objc public var library: RuntimeKit.AssetLibrary?
+  @objc public var media: Swift.String?
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc public class AssetLibrary : RuntimeKit.DirectoryMonitor {
+  @objc public var cacheInvalidated: (() -> Swift.Void)?
+  @objc public var libraryName: Swift.String {
+    @objc get
+  }
+  @objc public var contents: RuntimeKit.AssetContentStorage {
+    @objc get
+  }
+  @objc public init(url: Foundation.URL)
+  @objc public static func safeName(fileName: Swift.String) -> Swift.String?
+  override public func shouldManageUrl(_ url: Foundation.URL) -> Swift.Bool
+  override public func itemChanged(_ url: Foundation.URL, change: RuntimeKit.DirectoryMonitor.ChangeType)
+  override public func urlCacheUpdated()
+  @objc deinit
+  @objc override public init(url: Foundation.URL, monitorForUpdates: Swift.Bool)
+}
+@objc open class DirectoryMonitor : ObjectiveC.NSObject, Foundation.NSFilePresenter {
+  @objc open var presentedItemURL: Foundation.URL?
+  public var urls: Swift.Set<Foundation.URL> {
+    get
+  }
+  @objc open var presentedItemOperationQueue: Foundation.OperationQueue
+  @objc public init(url: Foundation.URL, monitorForUpdates: Swift.Bool)
+  @objc open func startMonitoring()
+  @objc open func stopMonitoring()
+  open func shouldManageUrl(_ url: Foundation.URL) -> Swift.Bool
+  open func itemChanged(_ url: Foundation.URL, change: RuntimeKit.DirectoryMonitor.ChangeType)
+  open func subItemChanged(_ url: Foundation.URL)
+  open func urlCacheUpdated()
+  public enum ChangeType {
+    case changed
+    case added
+    case removed
+    public static func == (a: RuntimeKit.DirectoryMonitor.ChangeType, b: RuntimeKit.DirectoryMonitor.ChangeType) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  @objc open func updateUrlCache()
+  open func createItem(at url: Foundation.URL, writer: (Foundation.URL) throws -> ()) -> Swift.Bool
+  open func renameItem(at url: Foundation.URL, name: Swift.String) -> Swift.Bool
+  open func deleteItem(at url: Foundation.URL) -> Swift.Bool
+  @objc open func presentedSubitem(at oldURL: Foundation.URL, didMoveTo newURL: Foundation.URL)
+  @objc open func presentedSubitemDidChange(at url: Foundation.URL)
+  @objc public static func standardizedDirectoryURL(_ url: Foundation.URL) -> Foundation.URL
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc extension Project {
+  @objc dynamic public func fixDependencies(_ projectManager: RuntimeKit.ProjectManager)
+}
+@objc extension ProjectManager {
+  @objc dynamic public func allDependentProjects(forProject project: RuntimeKit.Project, shouldFix fix: Swift.Bool) -> Swift.Set<RuntimeKit.Project>
+  @objc dynamic public func allDependentProjects(forProject project: RuntimeKit.Project, shouldFix fix: Swift.Bool, dependencies: Swift.Set<RuntimeKit.Project>) -> Swift.Set<RuntimeKit.Project>
+}
+@_inheritsConvenienceInitializers @objc public class RuntimeStyle : ObjectiveC.NSObject {
+  @objc public static func codeFont(withSize size: CoreGraphics.CGFloat, weight: UIKit.UIFont.Weight) -> UIKit.UIFont
+  @objc public static func defaultFont(withSize size: CoreGraphics.CGFloat, weight: UIKit.UIFont.Weight) -> UIKit.UIFont
+  @objc public static var sidebarTitleFont: UIKit.UIFont
+  @objc public static var parameterTitleFont: UIKit.UIFont
+  @objc public static var parameterValueFont: UIKit.UIFont
+  @objc public static var parameterActionFont: UIKit.UIFont
+  @objc public static var parameterTextFont: UIKit.UIFont
+  @objc public static var capturePanelTitleFont: UIKit.UIFont
+  @objc deinit
+  @objc override dynamic public init()
+}
+@_inheritsConvenienceInitializers @objc public class OSCManager : ObjectiveC.NSObject {
+  @objc public static var shared: RuntimeKit.OSCManager
+  @objc public var host: Swift.String
+  @objc public var port: Swift.Int
+  @objc public var messageHandler: (RuntimeKit.OSCMessage) -> Swift.Void {
+    @objc get
+    @objc set(newValue)
+  }
+  @objc public func startServer(port: Swift.Int = 9000, completion: (Swift.String?, Swift.Error?) -> Swift.Void)
+  @objc public func stopServer()
+  @objc public func sendMessage(_ address: Swift.String, contents: [Any])
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension AssetManager {
+  @objc dynamic public func addShaderBundleAssetPack(url: Foundation.URL)
+}
+@objc extension Project {
+  @objc dynamic public func dependentProjects(projectManager: RuntimeKit.ProjectManager) -> [RuntimeKit.Project]
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class AudioManager : ObjectiveC.NSObject {
+  @objc public static var shared: RuntimeKit.AudioManager
+  @objc deinit
+  @objc public var micAmplitude: Swift.Double {
+    @objc get
+  }
+  @objc public var micFrequency: Swift.Double {
+    @objc get
+  }
+  @objc public func startMicTracker()
+  @objc public func stopMicTracker()
+}
+@objc public enum ProjectCollectionSorting : Swift.Int {
+  case date
+  case name
+  case ordered
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol ProjectCollectionDelegate : ObjectiveC.NSObjectProtocol {
+  @objc func projectCollection(_ collection: RuntimeKit.ProjectCollection, removedProjectAtIndex index: Swift.Int)
+  @objc func projectCollection(_ collection: RuntimeKit.ProjectCollection, insertedProjectAtIndex index: Swift.Int)
+  @objc func projectCollection(_ collection: RuntimeKit.ProjectCollection, modifiedProjectAtIndex index: Swift.Int)
+  @objc func reloadProjectCollection(_ collection: RuntimeKit.ProjectCollection)
+}
+@_inheritsConvenienceInitializers @objc public class ProjectCollection : RuntimeKit.DirectoryMonitor {
+  @objc weak public var delegate: RuntimeKit.ProjectCollectionDelegate?
+  @objc override public init(url: Foundation.URL, monitorForUpdates: Swift.Bool)
+  override public func urlCacheUpdated()
+  @objc public var name: Swift.String {
+    @objc get
+  }
+  @objc public func renameProject(_ project: RuntimeKit.Project, name: Swift.String) -> Swift.Bool
+  @objc public func createProject(withFileWrapper wrapper: Foundation.FileWrapper, named name: Swift.String) -> Swift.Bool
+  @objc public func deleteProject(_ project: RuntimeKit.Project) -> Swift.Bool
+  @objc public func hasProject(_ project: RuntimeKit.Project) -> Swift.Bool
+  @objc public func hasProject(withName name: Swift.String) -> Swift.Bool
+  @objc public func project(withName name: Swift.String) -> RuntimeKit.Project?
+  @objc public var count: Swift.Int {
+    @objc get
+  }
+  public var isBuiltIn: Swift.Bool {
+    get
+  }
+  @objc public var sortOrder: RuntimeKit.ProjectCollectionSorting {
+    @objc get
+    @objc set(value)
+  }
+  @objc public var sortedProjects: [RuntimeKit.Project] {
+    @objc get
+  }
+  override public func shouldManageUrl(_ url: Foundation.URL) -> Swift.Bool
+  override public func itemChanged(_ url: Foundation.URL, change: RuntimeKit.DirectoryMonitor.ChangeType)
+  public static func == (lhs: RuntimeKit.ProjectCollection, rhs: RuntimeKit.ProjectCollection) -> Swift.Bool
+  @objc deinit
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>ZuniSoft</string>
+	<key>Icon</key>
+	<string>Icon</string>
+	<key>Link</key>
+	<string>www.zunisoft.com</string>
+	<key>Name</key>
+	<string>Dungeon Shadows</string>
+	<key>Types</key>
+	<array>
+		<string>sprites</string>
+		<string>shaders</string>
+		<string>sounds</string>
+		<string>music</string>
+		<string>text</string>
+		<string>models</string>
+	</array>
+	<key>Vector</key>
+	<false/>
+</dict>
+</plist>
